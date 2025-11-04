@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Información y Contacto | VaeBridge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================== ESTILOS GLOBALES Y TIPOGRAFÍA =================== */
+        body { 
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            
+            /* CONFIGURACIÓN DEL LOGO COMO FONDO */
+            background-image: url('logo.png'); /* Asegúrate que el logo.png esté en la misma carpeta */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: 30%; 
+        }
+
+        h1 {
+            text-align: center;
+            color: #3498db; 
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+            font-size: 2.5em;
+        }
+
+        /* =================== NAVEGACIÓN Y BOTONES =================== */
+        .navbar {
+            background-color: #1f1f1f; 
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .nav-button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background-color: #3498db; 
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* =================== CONTENEDOR PRINCIPAL Y FORMULARIO =================== */
+        .info-container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            /* Fondo con ligera opacidad para que se vea el logo del fondo */
+            background-color: rgba(31, 31, 31, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+
+        /* Contenedor de Texto Informativo */
+        .info-text-section {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            /* Fondo del texto informativo con más opacidad para una mejor lectura */
+            background-color: rgba(44, 62, 80, 0.98); 
+        }
+
+        .info-text-section h3 {
+            color: #ecf0f1;
+            margin-top: 0;
+            border-bottom: 1px solid #34495e;
+            padding-bottom: 10px;
+        }
+
+        .info-text-section p {
+            color: #bdc3c7;
+            line-height: 1.6;
+        }
+
+        .info-container h2 {
+            color: #3498db;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #34495e;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            box-sizing: border-box; 
+            font-size: 1em;
+            resize: vertical;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .submit-button {
+            width: 100%;
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #c0392b;
+        }
+
+        #form-result {
+            margin-top: 20px;
+            padding: 10px;
+            white-space: pre-wrap; 
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-button">Inicio</a> 
+        <a href="clasificacion.html" class="nav-button">Clasificación</a>
+        <a href="https://discord.gg/fEYt2VMU" class="nav-button">Discord</a>
+        <a href="informacion.html" class="nav-button">Información</a>
+    </nav>
+    
+    <h1>Acerca de VaeBridge Ranking</h1>
+
+    <div class="info-container">
+        
+        <div class="info-text-section">
+            <h3>Nuestra Misión y Metodología</h3>
+            <p>
+                VaeBridge es el ranking definitivo para medir la habilidad de los jugadores en las categorías clave del juego. Nuestro sistema de puntuación ELO no solo considera la victoria o la derrota, sino también las métricas de rendimiento en **Bypassing**, **PVP** y **Defensa** para crear una clasificación justa y transparente.
+            </p>
+            <p>
+                La clasificación se actualiza mensualmente con base en torneos oficiales y análisis de partidas de alto nivel por nuestro equipo de observadores. ¡Solo los mejores llegan al Tier S!
+            </p>
+        </div>
+        
+        <h2>Contáctanos o Sugiere un Jugador</h2>
+        <p style="text-align: center; color: #bdc3c7; margin-bottom: 25px;">
+            Usa el formulario para cualquier consulta, reportar errores en el ranking o para proponer un jugador que creas que merece un lugar en la tabla.
+        </p>
+
+        <form 
+            id="contactForm" 
+            action="https://formspree.io/f/mgvpjpro" 
+            method="POST"
+        >
+            <div class="form-group">
+                <label for="nombre">Nombre o Nickname:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email de Contacto:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="mensaje">Mensaje / Detalle del Jugador:</label>
+                <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-button">Enviar Formulario</button>
+        </form>
+        
+        <div id="form-result"></div>
+    </div>
+
+    <script src="script.js"></script> 
+</body>
+</html>

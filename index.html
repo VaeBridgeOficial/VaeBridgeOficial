@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio | VaeBridge Ranking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================== ESTILOS GLOBALES Y TIPOGRAFÍA =================== */
+        body { 
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            min-height: 100vh;
+            
+            /* CONFIGURACIÓN DEL LOGO COMO FONDO COMPLETO */
+            background-image: url('./logo.png'); /* Ruta del logo */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: cover; 
+            
+            /* FILTRO DE OSCURECIMIENTO (aplicado a todo) */
+            filter: brightness(0.7); 
+        }
+
+        h1 {
+            text-align: center;
+            color: #3498db; 
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+            font-size: 3em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            /* AJUSTE CLAVE: Se pone encima y anula el filtro */
+            position: relative; 
+            z-index: 20; 
+            filter: brightness(1); 
+        }
+        
+        /* =================== NAVEGACIÓN Y BOTONES =================== */
+        .navbar {
+            background-color: #1f1f1f; 
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-align: center;
+            /* AJUSTE CLAVE: Se pone encima y anula el filtro del body */
+            filter: brightness(1); 
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-button {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            background-color: #3498db; 
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Contenido principal de la página de inicio */
+        .main-content {
+            margin: 50px auto;
+            padding: 40px;
+            max-width: 800px;
+            /* Fondo semi-transparente para asegurar la legibilidad */
+            background-color: rgba(31, 31, 31, 0.9); 
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.8;
+            text-align: left;
+            /* AJUSTE CLAVE: Se pone encima y anula el filtro del body */
+            filter: brightness(1); 
+            position: relative;
+            z-index: 5;
+        }
+        
+        .main-content h2 {
+            color: #e74c3c;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 80%;
+            margin: 30px auto 10px;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .cta-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.02);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-button">Inicio</a> 
+        <a href="clasificacion.html" class="nav-button">Clasificación</a>
+        <a href="https://discord.gg/fEYt2VMU" class="nav-button">Discord</a>
+        <a href="informacion.html" class="nav-button">Información</a>
+    </nav>
+    
+    <h1>Bienvenido a VaeBridge</h1>
+
+    <div class="main-content">
+        <h2>La Plataforma de Clasificación Definitiva</h2>
+        
+        <p>
+            VaeBridge es el ranking oficial para medir la excelencia en las habilidades de juego más importantes. Nuestro sistema ELO avanzado te permite ver quién es el mejor en cada categoría: **Bypassing**, **PVP**, y **Defensa**.
+        </p>
+        
+        <p>
+            Explora las tablas de clasificación para ver las puntuaciones de los jugadores, sus insignias y su posición actual. Las estadísticas se actualizan regularmente con datos de torneos y análisis de partidas de alto rendimiento.
+        </p>
+        
+        <a href="clasificacion.html" class="cta-button">VER CLASIFICACIÓN COMPLETA</a>
+        
+        <p style="text-align: center; color: #bdc3c7; margin-top: 30px;">
+            ¿Tienes preguntas o quieres proponer un jugador? Visita la sección de Información.
+        </p>
+    </div>
+
+</body>
+</html>
