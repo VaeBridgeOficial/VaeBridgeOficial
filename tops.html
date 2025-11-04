@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tops | VaeBridge Ranking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================== ESTILOS GLOBALES Y TIPOGRAFÍA =================== */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            /* FONDO ANIMADO CON GRADIENTE */
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #e0e0e0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Overlay con patrón */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+            font-size: 2.8em;
+            text-shadow: 0 0 20px rgba(52, 152, 219, 0.8), 0 0 40px rgba(231, 76, 60, 0.4);
+            position: relative;
+            z-index: 20;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* =================== NAVEGACIÓN Y BOTONES =================== */
+        .navbar {
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 100;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 12px 28px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3498db 0%, #e74c3c 100%);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+            border-color: rgba(52, 152, 219, 0.8);
+        }
+
+        .nav-button:hover::before {
+            left: 0;
+        }
+
+        /* =================== FILTROS DE CATEGORÍAS =================== */
+        .category-filter {
+            width: 95%;
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(15, 12, 41, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .category-button {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-button.active {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+            transform: scale(1.05);
+        }
+
+        .category-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.5);
+        }
+
+        /* =================== CONTENEDOR DE TOPS =================== */
+        .tops-container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 30px auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .top-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: rgba(15, 12, 41, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .top-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(52, 152, 219, 0.4);
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+
+        /* Efecto especial para top 3 */
+        .top-item:nth-child(1) {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(15, 12, 41, 0.85) 100%);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .top-item:nth-child(2) {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.15) 0%, rgba(15, 12, 41, 0.85) 100%);
+            border-color: rgba(192, 192, 192, 0.5);
+        }
+
+        .top-item:nth-child(3) {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.15) 0%, rgba(15, 12, 41, 0.85) 100%);
+            border-color: rgba(205, 127, 50, 0.5);
+        }
+
+        .top-rank {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
+            min-width: 80px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        }
+
+        .top-item:nth-child(1) .top-rank {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .top-item:nth-child(2) .top-rank {
+            color: #c0c0c0;
+            text-shadow: 0 0 20px rgba(192, 192, 192, 0.8);
+        }
+
+        .top-item:nth-child(3) .top-rank {
+            color: #cd7f32;
+            text-shadow: 0 0 20px rgba(205, 127, 50, 0.8);
+        }
+
+        .top-avatar {
+            margin: 0 20px;
+        }
+
+        .top-avatar img {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            border: 3px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+
+        .top-item:hover .top-avatar img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .top-info {
+            flex: 1;
+        }
+
+        .top-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .top-tier {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .discord-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .discord-verified-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .discord-not-verified-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .discord-tag {
+            display: inline-block;
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .top-stats-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-left: 20px;
+            border-left: 2px solid rgba(52, 152, 219, 0.3);
+            font-size: 0.95em;
+            min-width: 150px;
+        }
+
+        .top-stats-detail div {
+            color: #bdc3c7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .top-rank {
+                margin-bottom: 10px;
+            }
+
+            .top-avatar {
+                margin: 10px 0;
+            }
+
+            .top-stats-detail {
+                border-left: none;
+                border-top: 2px solid rgba(52, 152, 219, 0.3);
+                padding-left: 0;
+                padding-top: 15px;
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-button">Inicio</a>
+        <a href="clasificacion.html" class="nav-button">Clasificación</a>
+        <a href="tops.html" class="nav-button">Tops</a>
+        <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank">Discord</a>
+        <a href="informacion.html" class="nav-button">Información</a>
+    </nav>
+
+    <h1>Top Jugadores</h1>
+
+    <div class="category-filter">
+        <div class="category-buttons">
+            <button class="category-button active" onclick="changeCategory('general', this)">Top General (ELO)</button>
+            <button class="category-button" onclick="changeCategory('wins', this)">Top Victorias</button>
+            <button class="category-button" onclick="changeCategory('kills', this)">Top Kills</button>
+            <button class="category-button" onclick="changeCategory('goles', this)">Top Goles</button>
+            <button class="category-button" onclick="changeCategory('winrate', this)">Top Winrate</button>
+        </div>
+    </div>
+
+    <div id="tops-container" class="tops-container">
+        <!-- Los datos se cargarán aquí dinámicamente -->
+        <div style="text-align: center; padding: 50px;">
+            <p style="font-size: 1.2em; color: #95a5a6;">Cargando datos...</p>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function changeCategory(category, button) {
+            // Remover clase active de todos los botones
+            document.querySelectorAll('.category-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Añadir clase active al botón clickeado
+            button.classList.add('active');
+
+            // Cargar los tops de la categoría seleccionada
+            renderTopPlayers(category);
+        }
+    </script>
+</body>
+</html>

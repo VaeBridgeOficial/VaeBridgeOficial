@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio | VaeBridge Ranking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================== ESTILOS GLOBALES Y TIPOGRAFÍA =================== */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            /* FONDO ANIMADO CON GRADIENTE */
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Overlay con patrón */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin: 40px 0 20px;
+            text-transform: uppercase;
+            font-size: 3em;
+            text-shadow: 0 0 20px rgba(52, 152, 219, 0.8), 0 0 40px rgba(231, 76, 60, 0.4);
+            position: relative;
+            z-index: 20;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* =================== NAVEGACIÓN Y BOTONES =================== */
+        .navbar {
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            z-index: 100;
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 12px 28px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3498db 0%, #e74c3c 100%);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
+            border-color: rgba(52, 152, 219, 0.8);
+        }
+
+        .nav-button:hover::before {
+            left: 0;
+        }
+
+        /* Contenido principal de la página de inicio */
+        .main-content {
+            margin: 50px auto;
+            padding: 40px;
+            max-width: 850px;
+            background: rgba(15, 12, 41, 0.85);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 100px rgba(52, 152, 219, 0.1);
+            line-height: 1.8;
+            text-align: left;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .main-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #3498db, #e74c3c, #3498db);
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .main-content:hover::before {
+            opacity: 0.3;
+        }
+
+        .main-content h2 {
+            color: #3498db;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, #3498db, #e74c3c);
+            border-image-slice: 1;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2em;
+            text-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+        }
+
+        .main-content p {
+            color: #e0e0e0;
+        }
+
+        .cta-button {
+            display: block;
+            width: 80%;
+            margin: 30px auto 10px;
+            padding: 18px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.6);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-button">Inicio</a>
+        <a href="clasificacion.html" class="nav-button">Clasificación</a>
+        <a href="tops.html" class="nav-button">Tops</a>
+        <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank">Discord</a>
+        <a href="informacion.html" class="nav-button">Información</a>
+    </nav>
+    
+    <h1>Bienvenido a VaeBridge</h1>
+
+    <div class="main-content">
+        <h2>La Plataforma de Clasificación Definitiva</h2>
+        
+        <p>
+            VaeBridge es el ranking oficial para medir la excelencia en las habilidades de juego más importantes. Nuestro sistema ELO avanzado te permite ver quién es el mejor en cada categoría: **Bypassing**, **PVP**, y **Defensa**.
+        </p>
+        
+        <p>
+            Explora las tablas de clasificación para ver las puntuaciones de los jugadores, sus insignias y su posición actual. Las estadísticas se actualizan regularmente con datos de torneos y análisis de partidas de alto rendimiento.
+        </p>
+        
+        <a href="clasificacion.html" class="cta-button">VER CLASIFICACIÓN COMPLETA</a>
+        
+        <p style="text-align: center; color: #bdc3c7; margin-top: 30px;">
+            ¿Tienes preguntas o quieres proponer un jugador? Visita la sección de Información.
+        </p>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
