@@ -1,0 +1,18 @@
+# Archivos de configuración con credenciales sensibles
+api/config.php
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+
+# Logs
+*.log
+
+# Directorios de caché
+cache/
+temp/
