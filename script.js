@@ -16,16 +16,16 @@ const JSON_FILE = window.CONFIG ? window.CONFIG.dataSource : 'data.json';
 // ====================================================================
 
 const TIER_MAPPING = {
-    'LT5': { letter: 'F', color: '#808080', order: 10 },
-    'HT5': { letter: 'D-', color: '#00bfff', order: 9 },
-    'LT4': { letter: 'D+', color: '#00ff00', order: 8 },
-    'HT4': { letter: 'C-', color: '#7fff00', order: 7 },
-    'LT3': { letter: 'C+', color: '#ffff00', order: 6 },
-    'HT3': { letter: 'B-', color: '#ffd700', order: 5 },
-    'LT2': { letter: 'B+', color: '#ffa500', order: 4 },
-    'HT2': { letter: 'A-', color: '#ff8c00', order: 3 },
-    'LT1': { letter: 'A+', color: '#ff4500', order: 2 },
-    'HT1': { letter: 'S', color: '#ff0000', order: 1 }
+    'LT5': { letter: 'F', color: '#a1d5fe', order: 10 },
+    'HT5': { letter: 'D-', color: '#a1d5fe', order: 9 },
+    'LT4': { letter: 'D+', color: '#a1d5fe', order: 8 },
+    'HT4': { letter: 'C-', color: '#a1d5fe', order: 7 },
+    'LT3': { letter: 'C+', color: '#b26830', order: 6 },
+    'HT3': { letter: 'B-', color: '#dc8749', order: 5 },
+    'LT2': { letter: 'B+', color: '#888d95', order: 4 },
+    'HT2': { letter: 'A-', color: '#a3b2c6', order: 3 },
+    'LT1': { letter: 'A+', color: '#d4b255', order: 2 },
+    'HT1': { letter: 'S', color: '#fece4a', order: 1 }
 };
 
 // ====================================================================
@@ -100,30 +100,41 @@ function construirRanking(playerIdsToShow, allPlayersData, isFiltered = false, h
         return;
     }
 
-    function getSkillColorClass(score) {
-        if (score >= 8) return 'skill-score-good';
-        if (score >= 5) return 'skill-score-avg';
+    function getStatColorClass(value, type) {
+        // Colores basados en el tipo de estadística
+        if (type === 'winrate') {
+            if (value >= 70) return 'skill-score-good';
+            if (value >= 50) return 'skill-score-avg';
+            return 'skill-score-low';
+        } else if (type === 'kdRatio') {
+            if (value >= 2.0) return 'skill-score-good';
+            if (value >= 1.0) return 'skill-score-avg';
+            return 'skill-score-low';
+        }
+        // Para wins, kills, goles (valores absolutos)
+        if (value >= 100) return 'skill-score-good';
+        if (value >= 50) return 'skill-score-avg';
         return 'skill-score-low';
     }
 
     // --- CONSTRUCCIÓN DE LA CABECERA ---
     if (headerContainer) {
         let skillHeaders = '';
-        const allSkills = {
-            'bypassing': 'BPASS',
-            'pvp': 'PVP',
-            'defensa': 'DEF'
+        const allStats = {
+            'wins': 'WINS',
+            'kills': 'KILLS',
+            'kdRatio': 'K/D'
         };
 
-        // 1. Define qué headers de habilidad mostrar
-        if (highlightSkill && allSkills[highlightSkill]) {
-            skillHeaders += `<div class="header-skill single-skill">${allSkills[highlightSkill]}</div>`;
+        // 1. Define qué headers de estadística mostrar
+        if (highlightSkill && allStats[highlightSkill]) {
+            skillHeaders += `<div class="header-skill single-skill">${allStats[highlightSkill]}</div>`;
         } else {
-            // Muestra TODAS las columnas de habilidad
+            // Muestra TODAS las columnas de estadísticas
             skillHeaders = `
-                <div class="header-skill">BPASS</div>
-                <div class="header-skill">PVP</div>
-                <div class="header-skill">DEF</div>
+                <div class="header-skill">WINS</div>
+                <div class="header-skill">KILLS</div>
+                <div class="header-skill">K/D</div>
             `;
         }
 
@@ -134,7 +145,7 @@ function construirRanking(playerIdsToShow, allPlayersData, isFiltered = false, h
             <div class="header-points">ELO</div>
             ${skillHeaders}
             <div class="header-tier">TIER</div>
-            <div class="header-badges">INSIGNIAS</div>
+            <div class="header-badges">RANGO</div>
         `;
     }
 
@@ -167,25 +178,28 @@ function construirRanking(playerIdsToShow, allPlayersData, isFiltered = false, h
                 <div class="header-points"><strong>${playerDetails.points}</strong></div>
             `;
 
-            const skills = playerDetails.skills || {};
+            const stats = playerDetails.stats || {};
             let skillCells = '';
 
-            // 2. Define qué celdas de habilidad mostrar
-            if (highlightSkill && skills[highlightSkill] !== undefined) {
-                // Muestra SOLO la habilidad resaltada
-                skillCells += `<div class="skill-col single-skill ${getSkillColorClass(skills[highlightSkill])}">${skills[highlightSkill] || '-'}</div>`;
+            // 2. Define qué celdas de estadística mostrar
+            if (highlightSkill && stats[highlightSkill] !== undefined) {
+                // Muestra SOLO la estadística resaltada
+                const value = highlightSkill === 'wins' || highlightSkill === 'kills' ? stats[highlightSkill] : stats.kdRatio;
+                const colorClass = getStatColorClass(value, highlightSkill);
+                skillCells += `<div class="skill-col single-skill ${colorClass}">${value || '-'}</div>`;
             } else if (!highlightSkill) {
-                // Muestra TODAS las habilidades
-                skillCells += `<div class="skill-col ${getSkillColorClass(skills.bypassing || 0)}">${skills.bypassing || '-'}</div>`;
-                skillCells += `<div class="skill-col ${getSkillColorClass(skills.pvp || 0)}">${skills.pvp || '-'}</div>`;
-                skillCells += `<div class="skill-col ${getSkillColorClass(skills.defensa || 0)}">${skills.defensa || '-'}</div>`;
+                // Muestra TODAS las estadísticas
+                skillCells += `<div class="skill-col ${getStatColorClass(stats.wins || 0, 'wins')}">${stats.wins || 0}</div>`;
+                skillCells += `<div class="skill-col ${getStatColorClass(stats.kills || 0, 'kills')}">${stats.kills || 0}</div>`;
+                skillCells += `<div class="skill-col ${getStatColorClass(stats.kdRatio || 0, 'kdRatio')}">${stats.kdRatio || '0.00'}</div>`;
             }
 
             item.innerHTML += skillCells;
 
-            // Tier e Insignias
+            // Tier y Rango de Victoria
             const tierDisplay = getTierDisplay(playerDetails.tier);
             const tierColor = getTierColor(playerDetails.tier);
+            const victoryRank = playerDetails.victory_rank || 'Sin Rango';
 
             item.innerHTML += `
                 <div class="header-tier">
@@ -194,7 +208,9 @@ function construirRanking(playerIdsToShow, allPlayersData, isFiltered = false, h
                     </span>
                 </div>
                 <div class="badges header-badges">
-                    ${playerDetails.badges.map(b => `<img src="${b.icon}" title="${b.title}">`).join('')}
+                    <span style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); color: #fff; padding: 5px 10px; border-radius: 5px; font-size: 0.85rem; font-weight: 600;">
+                        ${victoryRank}
+                    </span>
                 </div>
             `;
 
@@ -231,24 +247,24 @@ function filtrarRanking() {
     construirRanking(filteredPlayerIds, allPlayersData, true, null);
 }
 
-// Filtra, ORDENA y pasa el nombre de la habilidad a resaltar
-function filtrarPorHabilidad(skillName, minScore) {
+// Filtra, ORDENA y pasa el nombre de la estadística a resaltar
+function filtrarPorHabilidad(statName, minScore) {
     if (!fullRankingData) return;
 
     // 1. FILTRADO
     const filteredPlayerIds = fullRankingData.rankings.filter(playerId => {
         const player = allPlayersData[playerId];
-        const skillScore = player.skills[skillName] || 0;
-        return skillScore >= minScore;
+        const statValue = statName === 'kdRatio' ? player.stats.kdRatio : player.stats[statName] || 0;
+        return statValue >= minScore;
     });
 
-    // 2. ORDENAMIENTO POR LA HABILIDAD SELECCIONADA
+    // 2. ORDENAMIENTO POR LA ESTADÍSTICA SELECCIONADA
     const sortedPlayerIds = [...filteredPlayerIds].sort((idA, idB) => {
         const playerA = allPlayersData[idA];
         const playerB = allPlayersData[idB];
 
-        const scoreA = playerA.skills[skillName] || 0;
-        const scoreB = playerB.skills[skillName] || 0;
+        const scoreA = statName === 'kdRatio' ? playerA.stats.kdRatio : playerA.stats[statName] || 0;
+        const scoreB = statName === 'kdRatio' ? playerB.stats.kdRatio : playerB.stats[statName] || 0;
 
         // Orden descendente (mayor puntuación primero)
         if (scoreA !== scoreB) {
@@ -259,9 +275,9 @@ function filtrarPorHabilidad(skillName, minScore) {
         return fullRankingData.rankings.indexOf(idA) - fullRankingData.rankings.indexOf(idB);
     });
 
-    currentFilter = `Top ${minScore} en ${skillName}`;
-    // Llama a construirRanking con los IDs ORDENADOS y la habilidad a resaltar
-    construirRanking(sortedPlayerIds, allPlayersData, true, skillName);
+    currentFilter = `Top ${minScore} en ${statName}`;
+    // Llama a construirRanking con los IDs ORDENADOS y la estadística a resaltar
+    construirRanking(sortedPlayerIds, allPlayersData, true, statName);
 }
 
 function limpiarFiltros() {
@@ -356,7 +372,12 @@ function renderTopPlayers(category = 'general') {
                     <img src="${player.avatar}" alt="${player.name}">
                 </div>
                 <div class="top-info">
-                    <div class="top-name">${player.name}</div>
+                    <div class="top-name">${player.luckperms_prefix || ''} ${player.name}</div>
+                    <div class="bridge-rank">
+                        <span style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); color: #fff; padding: 5px 12px; border-radius: 8px; font-size: 0.9em; font-weight: 600; display: inline-block;">
+                            ${player.victory_rank || 'Sin Rango'}
+                        </span>
+                    </div>
                     ${statDisplay}
                     <div class="top-tier" style="background-color: ${tierColor}; color: #1f1f1f; padding: 5px 10px; border-radius: 5px; display: inline-block; font-weight: bold; margin-top: 5px;">
                         ${tierDisplay}
@@ -379,7 +400,23 @@ function renderTopPlayers(category = 'general') {
 }
 
 // ====================================================================
-// 5. INICIO DE LA APLICACIÓN
+// 5. SEGURIDAD - Prevención de XSS
+// ====================================================================
+
+function sanitizeInput(input) {
+    if (typeof input !== 'string') return input;
+
+    // Remover scripts y tags HTML peligrosos
+    return input
+        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+        .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+        .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
+        .replace(/<embed\b[^<]*>/gi, '')
+        .replace(/on\w+\s*=\s*["'][^"']*["']/gi, ''); // Remover event handlers inline
+}
+
+// ====================================================================
+// 6. INICIO DE LA APLICACIÓN
 // ====================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -392,4 +429,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('tops-container')) {
         renderTopPlayers('general');
     }
+
+    // Aplicar sanitización a todos los inputs y textareas
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('input', function(e) {
+            e.target.value = sanitizeInput(e.target.value);
+        });
+    });
 });

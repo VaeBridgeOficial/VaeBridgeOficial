@@ -2,83 +2,142 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio | VaeBridge Ranking</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="VaeBridge - El servidor de Minecraft definitivo con sistema de ranking ELO avanzado">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: https:">
+    <title>Inicio | VaeBridge Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* =================== ESTILOS GLOBALES Y TIPOGRAFÍA =================== */
-        body {
-            font-family: 'Roboto', sans-serif;
+        /* =================== VARIABLES CSS =================== */
+        :root {
+            --primary-color: #00d9ff;
+            --secondary-color: #ff006e;
+            --accent-color: #8338ec;
+            --dark-bg: #0a0a0f;
+            --dark-surface: #151520;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8c8;
+            --success-color: #00ff88;
+            --warning-color: #ffbb00;
+        }
+
+        /* =================== RESET Y BASE =================== */
+        * {
             margin: 0;
             padding: 0;
-            text-align: center;
-            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
             overflow-x: hidden;
-
-            /* FONDO ANIMADO CON GRADIENTE */
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            position: relative;
+            min-height: 100vh;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Overlay con patrón */
-        body::before {
-            content: '';
+        /* =================== FONDO ANIMADO =================== */
+        .animated-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0f 0%, #151520 50%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(131, 56, 236, 0.15) 0%, transparent 50%);
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-5%, 5%) rotate(5deg); }
+            66% { transform: translate(5%, -5%) rotate(-5deg); }
+        }
+
+        /* Partículas flotantes */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
             pointer-events: none;
+            opacity: 0;
+            animation: particleFloat 15s infinite;
             z-index: 1;
         }
 
-        h1 {
-            text-align: center;
-            color: #ffffff;
-            margin: 40px 0 20px;
-            text-transform: uppercase;
-            font-size: 3em;
-            text-shadow: 0 0 20px rgba(52, 152, 219, 0.8), 0 0 40px rgba(231, 76, 60, 0.4);
-            position: relative;
-            z-index: 20;
-            font-weight: 700;
-            letter-spacing: 2px;
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
         }
 
-        /* =================== NAVEGACIÓN Y BOTONES =================== */
+        /* =================== NAVEGACIÓN =================== */
         .navbar {
-            background: rgba(15, 12, 41, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            position: relative;
-            z-index: 100;
-            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            box-shadow: 0 4px 30px rgba(0, 217, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .nav-button {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: white;
-            padding: 12px 28px;
-            margin: 0 10px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(131, 56, 236, 0.1) 100%);
+            color: var(--text-primary);
+            padding: 12px 30px;
             text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-block;
             position: relative;
             overflow: hidden;
-            border: 2px solid transparent;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .nav-button::before {
@@ -88,86 +147,274 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #3498db 0%, #e74c3c 100%);
-            transition: left 0.3s ease;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: -1;
         }
 
         .nav-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.6);
-            border-color: rgba(52, 152, 219, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+            border-color: var(--primary-color);
         }
 
         .nav-button:hover::before {
             left: 0;
         }
 
-        /* Contenido principal de la página de inicio */
-        .main-content {
-            margin: 50px auto;
-            padding: 40px;
-            max-width: 850px;
-            background: rgba(15, 12, 41, 0.85);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 100px rgba(52, 152, 219, 0.1);
-            line-height: 1.8;
-            text-align: left;
-            position: relative;
-            z-index: 10;
-            border: 1px solid rgba(52, 152, 219, 0.2);
+        .nav-button:active {
+            transform: translateY(-1px);
         }
 
-        .main-content::before {
+        /* =================== HERO SECTION =================== */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: titleGlow 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 0, 110, 0.8));
+            }
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =================== IP CARD =================== */
+        .ip-card {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .ip-card::before {
             content: '';
             position: absolute;
             top: -2px;
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(135deg, #3498db, #e74c3c, #3498db);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
             border-radius: 20px;
             opacity: 0;
             z-index: -1;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s;
         }
 
-        .main-content:hover::before {
+        .ip-card:hover::before {
             opacity: 0.3;
+            animation: borderPulse 2s ease-in-out infinite;
         }
 
-        .main-content h2 {
-            color: #3498db;
-            border-bottom: 3px solid transparent;
-            border-image: linear-gradient(90deg, #3498db, #e74c3c);
-            border-image-slice: 1;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+        @keyframes borderPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .ip-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .ip-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: rgba(10, 10, 15, 0.8);
+            padding: 25px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            gap: 20px;
+        }
+
+        .ip-text {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            color: var(--success-color);
+            font-weight: 700;
             text-align: center;
-            font-size: 2em;
-            text-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+            width: 100%;
         }
 
-        .main-content p {
-            color: #e0e0e0;
+        .copy-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--dark-bg);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .copy-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, var(--success-color) 0%, #00cc70 100%);
+        }
+
+        /* =================== CONTENIDO PRINCIPAL =================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            transform: translateX(-100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* =================== CTA SECTION =================== */
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(255, 0, 110, 0.1) 100%);
+            border-radius: 30px;
+            margin: 0 20px 80px;
+            border: 2px solid rgba(0, 217, 255, 0.2);
         }
 
         .cta-button {
-            display: block;
-            width: 80%;
-            margin: 30px auto 10px;
-            padding: 18px;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: var(--text-primary);
+            padding: 20px 60px;
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.3em;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid transparent;
         }
 
         .cta-button::before {
@@ -180,50 +427,295 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             transform: translate(-50%, -50%);
-            transition: width 0.5s, height 0.5s;
-        }
-
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
+            transition: width 0.6s, height 0.6s;
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 15px 50px rgba(255, 0, 110, 0.5);
+            border-color: var(--secondary-color);
         }
 
+        .cta-button:active::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        /* =================== FOOTER =================== */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(10, 10, 15, 0.95);
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            color: var(--text-secondary);
+        }
+
+        .footer p {
+            font-size: 0.95rem;
+        }
+
+        /* =================== RESPONSIVE =================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .ip-display {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-container {
+                gap: 10px;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =================== UTILIDADES =================== */
+        .glow-text {
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        /* Tooltip para el botón de copiar */
+        .copy-tooltip {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--success-color);
+            color: var(--dark-bg);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .copy-tooltip.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .copy-btn-wrapper {
+            position: relative;
+        }
     </style>
 </head>
 <body>
+    <!-- Fondo animado -->
+    <div class="animated-background"></div>
 
+    <!-- Navegación -->
     <nav class="navbar">
-        <a href="index.html" class="nav-button">Inicio</a>
-        <a href="clasificacion.html" class="nav-button">Clasificación</a>
-        <a href="tops.html" class="nav-button">Tops</a>
-        <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank">Discord</a>
-        <a href="informacion.html" class="nav-button">Información</a>
+        <div class="nav-container">
+            <a href="index.html" class="nav-button">Inicio</a>
+            <a href="https://www.mitienda.com" class="nav-button" target="_blank" rel="noopener noreferrer">Tienda</a>
+            <a href="tops.html" class="nav-button">Tops</a>
+            <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="baneos.html" class="nav-button">Baneos</a>
+            <a href="informacion.html" class="nav-button">Información</a>
+        </div>
     </nav>
-    
-    <h1>Bienvenido a VaeBridge</h1>
 
-    <div class="main-content">
-        <h2>La Plataforma de Clasificación Definitiva</h2>
-        
-        <p>
-            VaeBridge es el ranking oficial para medir la excelencia en las habilidades de juego más importantes. Nuestro sistema ELO avanzado te permite ver quién es el mejor en cada categoría: **Bypassing**, **PVP**, y **Defensa**.
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>VaeBridge</h1>
+        <p class="subtitle">El Servidor de Minecraft Definitivo</p>
+    </section>
+
+    <!-- IP Card -->
+    <div class="ip-card">
+        <h2>Únete al Servidor</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 10px;">
+            Conéctate ahora usando nuestra IP oficial
         </p>
-        
-        <p>
-            Explora las tablas de clasificación para ver las puntuaciones de los jugadores, sus insignias y su posición actual. Las estadísticas se actualizan regularmente con datos de torneos y análisis de partidas de alto rendimiento.
-        </p>
-        
-        <a href="clasificacion.html" class="cta-button">VER CLASIFICACIÓN COMPLETA</a>
-        
-        <p style="text-align: center; color: #bdc3c7; margin-top: 30px;">
-            ¿Tienes preguntas o quieres proponer un jugador? Visita la sección de Información.
-        </p>
+        <div class="ip-display">
+            <div class="ip-text">vaebridge.minecraft.best</div>
+            <div class="copy-btn-wrapper">
+                <button class="copy-btn" onclick="copyIP()">
+                    <span id="copy-text">Copiar IP</span>
+                </button>
+                <div class="copy-tooltip" id="copy-tooltip">IP Copiada</div>
+            </div>
+        </div>
     </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Sistema ELO Avanzado</h3>
+                <p>
+                    Nuestro sistema de ranking ELO te permite competir y demostrar tu habilidad real.
+                    Mide tu excelencia en Bypassing, PVP y Defensa contra los mejores jugadores.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Competencia Global</h3>
+                <p>
+                    Enfréntate a jugadores de todo el mundo en torneos épicos.
+                    Las clasificaciones se actualizan en tiempo real basándose en tu rendimiento.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Juego Limpio</h3>
+                <p>
+                    Sistema de moderación avanzado para garantizar una experiencia
+                    justa y segura. Consulta el historial de baneos públicos.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Múltiples Categorías</h3>
+                <p>
+                    Domina tres categorías principales: Bypassing para los estrategas,
+                    PVP para los guerreros, y Defensa para los tácticos.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Estadísticas Detalladas</h3>
+                <p>
+                    Accede a estadísticas completas de todos los jugadores. Victorias, kills,
+                    goles y winrate en tiempo real.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Insignias y Logros</h3>
+                <p>
+                    Desbloquea insignias exclusivas y logros especiales.
+                    Demuestra tu maestría y colecciona recompensas únicas.
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 20px; color: var(--primary-color);">
+                Listo para el Desafío
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 30px;">
+                Consulta los tops y descubre dónde te encuentras entre los mejores
+            </p>
+            <a href="tops.html" class="cta-button">Ver Tops</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 VaeBridge. Todos los derechos reservados.</p>
+        <p style="margin-top: 10px; font-size: 0.85rem;">
+            Sistema de ranking actualizado mensualmente
+        </p>
+    </footer>
+
+    <!-- Script para copiar IP y partículas -->
+    <script>
+        // Función para copiar IP
+        function copyIP() {
+            const ip = 'vaebridge.minecraft.best';
+            const button = document.querySelector('.copy-btn');
+            const buttonText = document.getElementById('copy-text');
+            const tooltip = document.getElementById('copy-tooltip');
+
+            if (navigator.clipboard && window.isSecureContext) {
+                // Secure context: Use clipboard API
+                navigator.clipboard.writeText(ip).then(function() {
+                    showSuccess();
+                }).catch(function(err) {
+                    showError(err);
+                });
+            } else {
+                // Insecure context: Use fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = ip;
+                textArea.style.position = 'absolute';
+                textArea.style.left = '-9999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showSuccess();
+                } catch (err) {
+                    showError(err);
+                } finally {
+                    document.body.removeChild(textArea);
+                }
+            }
+
+            function showSuccess() {
+                button.classList.add('copied');
+                buttonText.textContent = '✓ Copiado';
+                tooltip.classList.add('show');
+
+                setTimeout(function() {
+                    button.classList.remove('copied');
+                    buttonText.textContent = 'Copiar IP';
+                    tooltip.classList.remove('show');
+                }, 2000);
+            }
+
+            function showError(err) {
+                console.error('Error al copiar: ', err);
+                buttonText.textContent = 'Error';
+                setTimeout(function() {
+                    buttonText.textContent = 'Copiar IP';
+                }, 2000);
+            }
+        }
+
+        // Crear partículas flotantes
+        function createParticles() {
+            const particleCount = 30;
+            const body = document.body;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+
+                // Colores aleatorios
+                const colors = ['#00d9ff', '#ff006e', '#8338ec', '#00ff88'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                body.appendChild(particle);
+            }
+        }
+
+        // Inicializar partículas cuando se carga la página
+        window.addEventListener('load', createParticles);
+
+        // Prevenir ataques XSS básicos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sanitizar inputs si existen
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                });
+            });
+        });
+    </script>
 
     <script src="config.js"></script>
     <script src="script.js"></script>

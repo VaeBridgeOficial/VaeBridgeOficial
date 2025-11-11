@@ -1,0 +1,477 @@
+/* =================== VARIABLES Y ESTILOS BASE VAEBRIDGE =================== */
+:root {
+    --primary-color: #00d9ff;
+    --secondary-color: #ff006e;
+    --accent-color: #8338ec;
+    --dark-bg: #0a0a0f;
+    --dark-surface: #151520;
+    --text-primary: #ffffff;
+    --text-secondary: #b8b8c8;
+    --success-color: #00ff88;
+    --warning-color: #ffbb00;
+    --danger-color: #ff3838;
+}
+
+body {
+    background: linear-gradient(135deg, #0a0a0f 0%, #151520 50%, #1a1a2e 100%);
+    color: var(--text-primary);
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+}
+
+/* =================== AVATARES =================== */
+.avatar {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 217, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.avatar:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+    transform: scale(1.1);
+}
+
+.avatar-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.avatar-name-left {
+    display: flex;
+    align-items: center;
+}
+
+/* =================== HEADER =================== */
+.litebans-header {
+    display: block;
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    margin: 20px 0;
+}
+
+.col-lg-12 {
+    text-align: center;
+}
+
+/* =================== NAVBAR =================== */
+.navbar {
+    position: static;
+    font-weight: bold;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(131, 56, 236, 0.1) 100%) !important;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 217, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-brand {
+    font-weight: 900;
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.navbar-active {
+    font-weight: bolder;
+    color: var(--primary-color) !important;
+}
+
+.nav-link {
+    color: var(--text-primary) !important;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 50px;
+    margin: 0 5px;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+    background: rgba(0, 217, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.my-lg-0 {
+    font-weight: lighter;
+}
+
+.my-lg-0 a {
+    transition: all 0.3s ease;
+}
+
+.my-lg-0 a:hover {
+    transform: scale(1.05);
+}
+
+/* =================== TABLES =================== */
+.table {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.03) 0%, rgba(131, 56, 236, 0.03) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+th {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, rgba(131, 56, 236, 0.15) 100%) !important;
+    color: var(--primary-color) !important;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none !important;
+    padding: 20px 10px;
+}
+
+table tr td {
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: middle !important;
+    text-align: center;
+    border-color: rgba(0, 217, 255, 0.1) !important;
+    color: var(--text-secondary);
+    padding: 15px 10px;
+}
+
+table tr {
+    transition: all 0.3s ease;
+}
+
+table tr:hover {
+    background: rgba(0, 217, 255, 0.05) !important;
+    transform: scale(1.01);
+}
+
+p {
+    margin-top: 2px;
+    color: var(--text-secondary);
+}
+
+/* =================== ENLACES =================== */
+a,
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+tr.hover {
+    cursor: pointer;
+}
+
+/* =================== CHECK FORM =================== */
+.litebans-check {
+    text-align: left;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 30px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    margin: 20px 0;
+}
+
+.litebans-check-btn {
+    margin-left: 5px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    color: var(--dark-bg);
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.litebans-check-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(0, 217, 255, 0.5);
+}
+
+.litebans-check-form {
+    margin-left: 15px;
+}
+
+.litebans-check-output {
+    margin-left: 3px;
+    color: var(--text-primary);
+}
+
+/* =================== PAGER =================== */
+.litebans-pager {
+    font-size: 30px;
+    color: var(--primary-color);
+}
+
+.litebans-pager-number {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
+.litebans-pager-left {
+    float: left;
+    transition: all 0.3s ease;
+}
+
+.litebans-pager-left:hover {
+    transform: translateX(-5px);
+    color: var(--accent-color);
+}
+
+.litebans-pager-right {
+    float: right;
+    transition: all 0.3s ease;
+}
+
+.litebans-pager-right:hover {
+    transform: translateX(5px);
+    color: var(--accent-color);
+}
+
+.litebans-pager-active {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+}
+
+.litebans-pager-inactive {
+    visibility: hidden;
+    pointer-events: none;
+    cursor: default;
+}
+
+/* =================== INDEX PAGE =================== */
+.litebans-index {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.litebans-index-main {
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+}
+
+.litebans-index-sub {
+    font-weight: lighter;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+}
+
+/* =================== INFO PAGE =================== */
+.badge, .badge-pill {
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+}
+
+.litebans-label-container {
+    display: inline-flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.litebans-label-info {
+    margin-left: 15px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.litebans-label-inactive {
+    color: #fff;
+    background: linear-gradient(135deg, #f79720 0%, #ff8c00 100%);
+    box-shadow: 0 4px 15px rgba(247, 151, 32, 0.4);
+}
+
+.litebans-label-expired {
+    color: #fff;
+    background: linear-gradient(135deg, #777 0%, #555 100%);
+    box-shadow: 0 4px 15px rgba(119, 119, 119, 0.4);
+}
+
+.litebans-label-active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--danger-color) 0%, var(--secondary-color) 100%);
+    box-shadow: 0 4px 15px rgba(255, 56, 56, 0.5);
+}
+
+.litebans-label-permanent {
+    color: #fff;
+    background: linear-gradient(135deg, #ee5555 0%, #cc0000 100%);
+    box-shadow: 0 4px 15px rgba(238, 85, 85, 0.5);
+}
+
+.litebans-label-ipban {
+    color: #fff;
+    background: linear-gradient(135deg, #ee5555 0%, #aa0000 100%);
+    box-shadow: 0 4px 15px rgba(238, 85, 85, 0.5);
+}
+
+.litebans-label-ipmute {
+    color: #fff;
+    background: linear-gradient(135deg, #ee5555 0%, #aa0000 100%);
+    box-shadow: 0 4px 15px rgba(238, 85, 85, 0.5);
+}
+
+/* =================== HISTORY PAGE =================== */
+.litebans-label-history {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 8px 15px;
+    border-radius: 50px;
+    margin: 5px;
+}
+
+.litebans-label-ban {
+    background: linear-gradient(135deg, darkred 0%, #8b0000 100%);
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+}
+
+.litebans-label-mute {
+    background: linear-gradient(135deg, dimgrey 0%, #4a4a4a 100%);
+    box-shadow: 0 4px 15px rgba(105, 105, 105, 0.4);
+}
+
+.litebans-label-warn {
+    background: linear-gradient(135deg, darkorange 0%, #ff8c00 100%);
+    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+}
+
+.litebans-label-kick {
+    background: linear-gradient(135deg, tomato 0%, #ff4500 100%);
+    box-shadow: 0 4px 15px rgba(255, 99, 71, 0.4);
+}
+
+/* =================== CONTENEDORES =================== */
+.container {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.02) 0%, rgba(131, 56, 236, 0.02) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 217, 255, 0.1);
+}
+
+/* =================== ALERTAS =================== */
+.alert {
+    border-radius: 15px;
+    border: 2px solid;
+    backdrop-filter: blur(20px);
+}
+
+.alert-light {
+    background: linear-gradient(135deg, rgba(255, 187, 0, 0.1) 0%, rgba(255, 140, 0, 0.1) 100%);
+    border-color: var(--warning-color);
+    color: var(--text-primary);
+}
+
+.alert-link {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* =================== UTILIDADES =================== */
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.noalign-w {
+    width: 0;
+}
+
+.noalign-h {
+    height: 0;
+}
+
+/* =================== INPUTS =================== */
+input[type="text"],
+input[type="search"],
+textarea {
+    background: rgba(0, 217, 255, 0.05);
+    border: 2px solid rgba(0, 217, 255, 0.3);
+    border-radius: 10px;
+    color: var(--text-primary);
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    outline: none;
+}
+
+/* =================== SCROLLBAR =================== */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    border-radius: 10px;
+    border: 2px solid var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+}
+
+/* =================== RESPONSIVE =================== */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+
+    .litebans-index-main {
+        font-size: 1.8rem;
+    }
+
+    th, td {
+        font-size: 0.9rem;
+        padding: 10px 5px;
+    }
+}

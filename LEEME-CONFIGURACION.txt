@@ -1,0 +1,119 @@
+====================================================================
+GUÍA DE CONFIGURACIÓN - VAEBRIDGE
+====================================================================
+
+PASO 1: CONFIGURAR BASE DE DATOS
+--------------------------------------------------------------------
+
+1. Abre el archivo: db-config.php
+
+2. Edita las siguientes líneas con los datos de tu base de datos MySQL:
+
+   define('DB_HOST', 'localhost');        // Host de tu base de datos
+   define('DB_NAME', 'vaebridge_db');     // Nombre de tu base de datos
+   define('DB_USER', 'root');             // Usuario de MySQL
+   define('DB_PASS', '');                 // Contraseña de MySQL
+
+3. Si usas LiteBans, también configura estos datos:
+
+   define('LITEBANS_DB_HOST', 'localhost');
+   define('LITEBANS_DB_NAME', 'litebans');
+   define('LITEBANS_DB_USER', 'root');
+   define('LITEBANS_DB_PASS', '');
+
+
+PASO 2: CONFIGURAR FRONTEND
+--------------------------------------------------------------------
+
+1. Abre el archivo: config.js
+
+2. Cambia la IP de tu servidor:
+
+   serverIP: 'vaebridge.minecraft.best',  // Cambia por tu IP real
+
+3. Cuando subas al VPS, cambia esta línea:
+
+   dataSource: 'data.json',
+
+   Por esta:
+
+   dataSource: 'api/players.php',
+
+
+PASO 3: SUBIR AL VPS
+--------------------------------------------------------------------
+
+1. Sube TODOS los archivos a tu VPS usando FTP o SSH
+
+2. Asegúrate de que tu servidor web (Apache/Nginx) tenga PHP habilitado
+
+3. Verifica que los permisos de los archivos sean correctos:
+   - Archivos PHP: 644
+   - Carpetas: 755
+
+4. Accede a tu sitio: http://tudominio.com
+
+
+PASO 4: VERIFICAR CONEXIÓN
+--------------------------------------------------------------------
+
+1. Abre en tu navegador: http://tudominio.com/db-config.php
+
+2. Al final del archivo db-config.php, descomenta esta línea:
+
+   // testConnection();
+
+   (quita las barras //)
+
+3. Refresca la página, deberías ver:
+   "Conexión exitosa a la base de datos principal"
+   "Conexión exitosa a LiteBans"
+
+4. Si funciona, vuelve a comentar la línea (agrega // al inicio)
+
+
+ESTRUCTURA DE CARPETAS
+--------------------------------------------------------------------
+
+VaeBridgeOficial-main/
+├── index.html              (Página principal)
+├── clasificacion.html      (Ranking de jugadores)
+├── tops.html              (Tops y estadísticas)
+├── baneos.html            (Sistema de baneos)
+├── informacion.html       (Información y contacto)
+├── config.js              (Configuración frontend - EDITAR AQUÍ)
+├── db-config.php          (Configuración base de datos - EDITAR AQUÍ)
+├── script.js              (Lógica del sitio)
+├── data.json              (Datos de prueba - solo para local)
+├── api/
+│   ├── players.php        (API para obtener jugadores)
+│   └── config.php         (Usa db-config.php automáticamente)
+└── litebans-php-master/   (Sistema de baneos)
+
+
+SOLUCIÓN DE PROBLEMAS
+--------------------------------------------------------------------
+
+PROBLEMA: "Error de conexión a la base de datos"
+SOLUCIÓN: Verifica que los datos en db-config.php sean correctos
+
+PROBLEMA: "No se cargan los rankings"
+SOLUCIÓN: Verifica que hayas cambiado 'data.json' por 'api/players.php'
+          en config.js cuando subas al VPS
+
+PROBLEMA: "Los baneos no se muestran"
+SOLUCIÓN: Verifica la configuración de LiteBans en db-config.php
+
+PROBLEMA: "Página en blanco"
+SOLUCIÓN: Revisa los logs de PHP de tu servidor web
+
+
+SOPORTE
+--------------------------------------------------------------------
+
+Si tienes problemas, revisa:
+1. Los logs de PHP de tu servidor
+2. La consola del navegador (F12)
+3. Que todos los archivos se hayan subido correctamente
+
+====================================================================

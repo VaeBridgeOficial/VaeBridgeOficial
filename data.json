@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "rankings": [
     "player1",
@@ -138,4 +139,96 @@
       }
     }
   }
+=======
+  {
+  "rankings": [
+    "player1",
+    "player2",
+    "player3",
+    "player4",
+    "player5"
+  ],
+  "players": {
+    "player1": {
+      "name": "Drufts",
+      "region": "NA",
+      "points": 50,
+      "tier": "S",
+      "avatar": "https://mc-heads.net/avatar/Drufts/50",
+      "badges": [
+        { 
+          "title": "Winner", 
+          "icon": "https://img.icons8.com/color/48/000000/trophy.png" 
+        }
+      ],
+      "skills": { 
+        "bypassing": 10,
+        "pvp": 9,
+        "defensa": 8
+      }
+    },
+    "player2": {
+      "name": "IllGoTosleep",
+      "region": "EU",
+      "points": 45,
+      "tier": "A",
+      "avatar": "https://mc-heads.net/avatar/IllGoToSleep/50",
+      "badges": [
+        { 
+          "title": "Top Killer", 
+          "icon": "https://img.icons8.com/color/48/000000/sword.png" 
+        }
+      ],
+      "skills": { 
+        "bypassing": 9,
+        "pvp": 10,
+        "defensa": 9
+      }
+    },
+    "player3": {
+      "name": "iCookedPan_",
+      "region": "AS",
+      "points": 40,
+      "tier": "B",
+      "avatar": "https://mc-heads.net/avatar/iCookedPan_/50",
+      "badges": [],
+      "skills": { 
+        "bypassing": 8,
+        "pvp": 7,
+        "defensa": 8
+      }
+    },
+    "player4": {
+      "name": "Swmu",
+      "region": "EU",
+      "points": 38,
+      "tier": "B",
+      "avatar": "https://mc-heads.net/avatar/Swmu/50",
+      "badges": [],
+      "skills": { 
+        "bypassing": 7,
+        "pvp": 9,
+        "defensa": 6
+      }
+    },
+    "player5": {
+      "name": "fakluv",
+      "region": "NA",
+      "points": 35,
+      "tier": "C",
+      "avatar": "https://mc-heads.net/avatar/fakluv/50",
+      "badges": [
+        { 
+          "title": "Legend", 
+          "icon": "https://img.icons8.com/color/48/000000/medal.png" 
+        }
+      ],
+      "skills": { 
+        "bypassing": 8,
+        "pvp": 8,
+        "defensa": 9
+      }
+    }
+  }
+>>>>>>> 2a63219f46992d4331a59fb4427f3611432d937d
 }

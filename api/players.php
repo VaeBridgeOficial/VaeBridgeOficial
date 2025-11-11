@@ -5,6 +5,10 @@
 // datos de los jugadores en formato JSON para la página web
 // ====================================================================
 
+// Mostrar errores en desarrollo (comentar en producción)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
@@ -30,10 +34,14 @@ try {
             p.kills,
             p.deaths,
             p.goals as goles,
-            p.points_scored,
+            p.elo,
+            p.level,
+            p.xp,
             p.tier_test_rank,
+            p.victory_rank,
+            p.victory_rank_level,
             d.discord_id,
-            d.discord_username
+            d.minecraft_username
         FROM players p
         LEFT JOIN discord_links d ON p.uuid = d.minecraft_uuid
         ORDER BY p.wins DESC
@@ -52,15 +60,23 @@ try {
         // Determinar región (por defecto NA, esto debería venir de la DB)
         $region = 'NA'; // Puedes agregar este campo a la base de datos
 
-        // Calcular ELO/puntos (puedes usar points_scored o calcular basado en wins)
-        $points = $row['wins'] * 10 + $row['kills'] * 2 + $row['goles'] * 5;
+        // Usar el ELO de la base de datos o calcular puntos basados en estadísticas
+        // El plugin usa ELO (valor inicial 1000), pero también podemos calcular puntos personalizados
+        $points = isset($row['elo']) && $row['elo'] > 0
+            ? (int)$row['elo']
+            : ($row['wins'] * 10 + $row['kills'] * 2 + $row['goles'] * 5);
 
-        // Tier del tier test o calcular uno por defecto
-        $tier = $row['tier_test_rank'] ?? 'LT5';
+        // Tier del tier test o usar el valor de la base de datos
+        $tier = !empty($row['tier_test_rank']) && $row['tier_test_rank'] !== 'N/A'
+            ? $row['tier_test_rank']
+            : 'LT5';
 
         // Verificación de Discord
         $discordVerified = !empty($row['discord_id']);
-        $discordTag = $discordVerified ? $row['discord_username'] : null;
+        $discordTag = $discordVerified ? $row['minecraft_username'] : null;
+
+        // Calcular K/D ratio
+        $kdRatio = $row['deaths'] > 0 ? round($row['kills'] / $row['deaths'], 2) : $row['kills'];
 
         // Construir objeto del jugador
         $players[$playerId] = [
@@ -71,19 +87,19 @@ try {
             'avatar' => "https://mc-heads.net/avatar/{$row['name']}/50",
             'discordVerified' => $discordVerified,
             'discordTag' => $discordTag,
-            'badges' => [], // Puedes agregar lógica para badges
-            'skills' => [
-                'bypassing' => rand(5, 10), // Calcular o agregar a la DB
-                'pvp' => rand(5, 10),
-                'defensa' => rand(5, 10)
-            ],
+            'elo' => (int)$row['elo'],
+            'level' => (int)$row['level'],
+            'xp' => (int)$row['xp'],
+            'victory_rank' => $row['victory_rank'],
+            'victory_rank_level' => (int)$row['victory_rank_level'],
             'stats' => [
                 'wins' => (int)$row['wins'],
                 'losses' => (int)$row['losses'],
                 'kills' => (int)$row['kills'],
                 'deaths' => (int)$row['deaths'],
                 'goles' => (int)$row['goles'],
-                'winrate' => $winrate
+                'winrate' => $winrate,
+                'kdRatio' => $kdRatio
             ]
         ];
 
