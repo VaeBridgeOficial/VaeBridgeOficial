@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="VaeBridge - Sistema de baneos y moderación del servidor">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: https:; frame-src 'self'">
+    <title>Baneos | VaeBridge Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================== VARIABLES CSS =================== */
+        :root {
+            --primary-color: #00d9ff;
+            --secondary-color: #ff006e;
+            --accent-color: #8338ec;
+            --dark-bg: #0a0a0f;
+            --dark-surface: #151520;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8c8;
+            --success-color: #00ff88;
+            --warning-color: #ffbb00;
+            --danger-color: #ff3838;
+        }
+
+        /* =================== RESET Y BASE =================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* =================== FONDO ANIMADO =================== */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0f 0%, #151520 50%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(131, 56, 236, 0.15) 0%, transparent 50%);
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-5%, 5%) rotate(5deg); }
+            66% { transform: translate(5%, -5%) rotate(-5deg); }
+        }
+
+        /* =================== NAVEGACIÓN =================== */
+        .navbar {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            box-shadow: 0 4px 30px rgba(0, 217, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(131, 56, 236, 0.1) 100%);
+            color: var(--text-primary);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .nav-button:hover::before {
+            left: 0;
+        }
+
+        /* =================== HERO SECTION =================== */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        /* =================== CONTENEDOR PRINCIPAL =================== */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        /* =================== TABS DE CATEGORÍAS =================== */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .tab-btn {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(131, 56, 236, 0.1) 100%);
+            color: var(--text-primary);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--secondary-color) 100%);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 56, 56, 0.4);
+        }
+
+        .tab-btn:hover::before {
+            left: 0;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--danger-color) 0%, var(--secondary-color) 100%);
+            border-color: var(--danger-color);
+            box-shadow: 0 5px 20px rgba(255, 56, 56, 0.5);
+        }
+
+        /* =================== INFORMACIÓN DEL SISTEMA =================== */
+        .info-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .info-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .info-card .highlight {
+            color: var(--warning-color);
+            font-weight: 700;
+        }
+
+        /* =================== IFRAME MODERACIÓN =================== */
+        .litebans-container {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .litebans-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--danger-color), var(--secondary-color), var(--accent-color));
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s;
+        }
+
+        .litebans-container:hover::before {
+            opacity: 0.2;
+        }
+
+        .litebans-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 56, 56, 0.2);
+        }
+
+        .litebans-header h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--danger-color);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .external-link-btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: var(--dark-bg);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .external-link-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.5);
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            height: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(10, 10, 15, 0.8);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* =================== ADVERTENCIAS =================== */
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 187, 0, 0.1) 0%, rgba(255, 56, 56, 0.1) 100%);
+            border: 2px solid var(--warning-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .warning-box .icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .warning-box .content h4 {
+            color: var(--warning-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .warning-box .content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* =================== RESPONSIVE =================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                gap: 10px;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .tabs-container {
+                padding: 20px;
+            }
+
+            .tab-btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+
+            .litebans-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .iframe-wrapper {
+                height: 600px;
+            }
+
+            .warning-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* =================== LOADER =================== */
+        .loader {
+            text-align: center;
+            padding: 60px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .loader::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo animado -->
+    <div class="animated-background"></div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="https://vaebridge.com/" class="nav-button">Inicio</a>
+            <a href="https://www.mitienda.com" class="nav-button" target="_blank" rel="noopener noreferrer">Tienda</a>
+            <a href="https://vaebridge.com/tops" class="nav-button">Tops</a>
+            <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://vaebridge.com/baneos" class="nav-button">Baneos</a>
+            <a href="https://vaebridge.com/informacion" class="nav-button">Información</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Sistema de Baneos</h1>
+        <p class="subtitle">Transparencia total en la moderación del servidor</p>
+    </section>
+
+    <!-- Contenedor Principal -->
+    <div class="main-container">
+
+        <!-- Información del Sistema -->
+        <div class="info-card">
+            <h2>Sistema de Moderación</h2>
+            <p>
+                VaeBridge utiliza un sistema de moderación avanzado y profesional para Minecraft,
+                garantizando un entorno justo y seguro para todos los jugadores.
+            </p>
+            <p>
+                Consulta aquí el historial completo de baneos, silenciados, advertencias y expulsiones.
+                Todos los registros son públicos para mantener la transparencia en nuestra comunidad.
+            </p>
+        </div>
+
+        <!-- Advertencia -->
+        <div class="warning-box">
+            <div class="content">
+                <h4>Importante</h4>
+                <p>
+                    Si crees que tu baneo fue injusto, puedes apelar en nuestro servidor de Discord.
+                    Por favor, proporciona evidencia y mantén un tono respetuoso en tu apelación.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tabs de Categorías -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="changeTab('bans')">Baneos</button>
+            <button class="tab-btn" onclick="changeTab('mutes')">Silenciados</button>
+            <button class="tab-btn" onclick="changeTab('warnings')">Advertencias</button>
+            <button class="tab-btn" onclick="changeTab('kicks')">Expulsiones</button>
+        </div>
+
+        <!-- Contenedor LiteBans -->
+        <div class="litebans-container">
+            <div class="litebans-header">
+                <h3 id="current-category">Baneos Activos</h3>
+                <a href="../../litebans-php-master/index.php" target="_blank" class="external-link-btn">
+                    Abrir en Nueva Pestaña ↗
+                </a>
+            </div>
+
+            <div class="iframe-wrapper">
+                <iframe
+                    id="litebans-iframe"
+                    src="../../litebans-php-master/bans.php"
+                    title="Sistema de Moderación VaeBridge"
+                    loading="lazy"
+                >
+                    <div class="loader">Cargando sistema de moderación</div>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Información Adicional -->
+        <div class="info-card" style="margin-top: 40px;">
+            <h2>Reglas del Servidor</h2>
+            <p>
+                Para evitar sanciones, asegúrate de seguir nuestras reglas. Las infracciones más comunes incluyen:
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 25px; text-align: left;">
+                <div style="background: rgba(255, 56, 56, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid var(--danger-color);">
+                    <strong style="color: var(--danger-color);">Uso de Hacks/Cheats</strong>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">Baneo permanente</p>
+                </div>
+                <div style="background: rgba(255, 187, 0, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid var(--warning-color);">
+                    <strong style="color: var(--warning-color);">Toxicidad/Spam</strong>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">Silenciado temporal o baneo</p>
+                </div>
+                <div style="background: rgba(255, 0, 110, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid var(--secondary-color);">
+                    <strong style="color: var(--secondary-color);">Griefing</strong>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">Baneo temporal o permanente</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script para cambiar tabs -->
+    <script>
+        function changeTab(category) {
+            // Actualizar botones activos
+            const allBtns = document.querySelectorAll('.tab-btn');
+            allBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Actualizar iframe y título
+            const iframe = document.getElementById('litebans-iframe');
+            const title = document.getElementById('current-category');
+            const externalLink = document.querySelector('.external-link-btn');
+
+            const categoryData = {
+                'bans': {
+                    src: '../../litebans-php-master/bans.php',
+                    title: 'Baneos Activos',
+                    link: '../../litebans-php-master/bans.php'
+                },
+                'mutes': {
+                    src: '../../litebans-php-master/mutes.php',
+                    title: 'Silenciados Activos',
+                    link: '../../litebans-php-master/mutes.php'
+                },
+                'warnings': {
+                    src: '../../litebans-php-master/warnings.php',
+                    title: 'Advertencias',
+                    link: '../../litebans-php-master/warnings.php'
+                },
+                'kicks': {
+                    src: '../../litebans-php-master/kicks.php',
+                    title: 'Expulsiones',
+                    link: '../../litebans-php-master/kicks.php'
+                }
+            };
+
+            if (categoryData[category]) {
+                iframe.src = categoryData[category].src;
+                title.textContent = categoryData[category].title;
+                externalLink.href = categoryData[category].link;
+            }
+        }
+
+        // Prevenir ataques XSS básicos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sanitizar inputs si existen
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

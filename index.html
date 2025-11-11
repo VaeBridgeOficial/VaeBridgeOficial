@@ -279,10 +279,23 @@
         .ip-text {
             font-family: 'Orbitron', monospace;
             font-size: clamp(1.4rem, 4vw, 2rem);
-            color: var(--success-color);
+            background: linear-gradient(135deg, #00d9ff 0%, #00ff88 50%, #8338ec 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 700;
             text-align: center;
             width: 100%;
+            animation: ipGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes ipGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.8));
+            }
         }
 
         .copy-btn {
@@ -523,12 +536,12 @@
     <!-- Navegación -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-button">Inicio</a>
+            <a href="https://vaebridge.com/" class="nav-button">Inicio</a>
             <a href="https://www.mitienda.com" class="nav-button" target="_blank" rel="noopener noreferrer">Tienda</a>
-            <a href="tops.html" class="nav-button">Tops</a>
+            <a href="https://vaebridge.com/tops" class="nav-button">Tops</a>
             <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank" rel="noopener noreferrer">Discord</a>
-            <a href="baneos.html" class="nav-button">Baneos</a>
-            <a href="informacion.html" class="nav-button">Información</a>
+            <a href="https://vaebridge.com/baneos" class="nav-button">Baneos</a>
+            <a href="https://vaebridge.com/informacion" class="nav-button">Información</a>
         </div>
     </nav>
 
@@ -545,7 +558,7 @@
             Conéctate ahora usando nuestra IP oficial
         </p>
         <div class="ip-display">
-            <div class="ip-text">vaebridge.minecraft.best</div>
+            <div class="ip-text">vaebridge.com</div>
             <div class="copy-btn-wrapper">
                 <button class="copy-btn" onclick="copyIP()">
                     <span id="copy-text">Copiar IP</span>
@@ -610,12 +623,12 @@
         <!-- CTA Section -->
         <div class="cta-section">
             <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2.5rem; margin-bottom: 20px; color: var(--primary-color);">
-                Listo para el Desafío
+                Listo para el Vaesafío?
             </h2>
             <p style="color: var(--text-secondary); font-size: 1.2rem; margin-bottom: 30px;">
                 Consulta los tops y descubre dónde te encuentras entre los mejores
             </p>
-            <a href="tops.html" class="cta-button">Ver Tops</a>
+            <a href="https://vaebridge.com/tops" class="cta-button">Ver Tops</a>
         </div>
     </div>
 
@@ -631,7 +644,7 @@
     <script>
         // Función para copiar IP
         function copyIP() {
-            const ip = 'vaebridge.minecraft.best';
+            const ip = 'vaebridge.com';
             const button = document.querySelector('.copy-btn');
             const buttonText = document.getElementById('copy-text');
             const tooltip = document.getElementById('copy-tooltip');

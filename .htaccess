@@ -1,0 +1,34 @@
+# Habilitar mod_rewrite
+RewriteEngine On
+
+# Forzar HTTPS (opcional, descomenta si necesitas SSL)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Reglas de redirección para URLs bonitas
+
+# Redireccionar /tops a /server/tops/
+RewriteRule ^tops/?$ /server/tops/ [L]
+RewriteRule ^server/tops/?$ /server/tops/index.html [L]
+
+# Redireccionar /baneos a /server/baneos/
+RewriteRule ^baneos/?$ /server/baneos/ [L]
+RewriteRule ^server/baneos/?$ /server/baneos/index.html [L]
+
+# Redireccionar /informacion a /server/informacion/
+RewriteRule ^informacion/?$ /server/informacion/ [L]
+RewriteRule ^server/informacion/?$ /server/informacion/index.html [L]
+
+# Redirigir archivos .html viejos a las nuevas URLs
+RewriteRule ^tops\.html$ /tops [R=301,L]
+RewriteRule ^baneos\.html$ /baneos [R=301,L]
+RewriteRule ^informacion\.html$ /informacion [R=301,L]
+
+# Opciones de DirectoryIndex
+DirectoryIndex index.html index.php
+
+# Habilitar seguimiento de enlaces simbólicos (si es necesario)
+Options +FollowSymLinks
+
+# Deshabilitar listado de directorios
+Options -Indexes
