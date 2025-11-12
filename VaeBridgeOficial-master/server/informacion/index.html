@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="VaeBridge - Información y contacto del servidor">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://formspree.io; img-src 'self' data: https:; form-action 'self' https://formspree.io">
+    <title>Información | VaeBridge Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* =================== VARIABLES CSS =================== */
+        :root {
+            --primary-color: #00d9ff;
+            --secondary-color: #ff006e;
+            --accent-color: #8338ec;
+            --dark-bg: #0a0a0f;
+            --dark-surface: #151520;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8c8;
+            --success-color: #00ff88;
+            --warning-color: #ffbb00;
+        }
+
+        /* =================== RESET Y BASE =================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* =================== FONDO ANIMADO =================== */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a0f 0%, #151520 50%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 110, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(131, 56, 236, 0.15) 0%, transparent 50%);
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-5%, 5%) rotate(5deg); }
+            66% { transform: translate(5%, -5%) rotate(-5deg); }
+        }
+
+        /* =================== NAVEGACIÓN =================== */
+        .navbar {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            box-shadow: 0 4px 30px rgba(0, 217, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(131, 56, 236, 0.1) 100%);
+            color: var(--text-primary);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .nav-button:hover::before {
+            left: 0;
+        }
+
+        /* =================== HERO SECTION =================== */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        /* =================== CONTENEDOR PRINCIPAL =================== */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        /* =================== INFO CARD =================== */
+        .info-section {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid rgba(0, 217, 255, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .info-section h3 {
+            color: var(--text-primary);
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        .info-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .info-section ul li::before {
+            content: '▸';
+            color: var(--primary-color);
+            position: absolute;
+            left: -15px;
+        }
+
+        /* =================== FORMULARIO =================== */
+        .form-container {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(131, 56, 236, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            border-radius: 20px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s;
+        }
+
+        .form-container:hover::before {
+            opacity: 0.1;
+        }
+
+        .form-container h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .form-intro {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            background: rgba(10, 10, 15, 0.8);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+            background: rgba(10, 10, 15, 0.95);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: var(--text-primary);
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 40px rgba(255, 0, 110, 0.5);
+        }
+
+        .submit-button:active::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #form-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        #form-result.success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid var(--success-color);
+            color: var(--success-color);
+            display: block;
+        }
+
+        #form-result.error {
+            background: rgba(255, 56, 56, 0.1);
+            border: 2px solid #ff3838;
+            color: #ff3838;
+            display: block;
+        }
+
+        /* =================== STATS GRID =================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(131, 56, 236, 0.1) 100%);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .stat-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .stat-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* =================== RESPONSIVE =================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                gap: 10px;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .info-section,
+            .form-container {
+                padding: 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo animado -->
+    <div class="animated-background"></div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="https://vaebridge.com/" class="nav-button">Inicio</a>
+            <a href="https://www.mitienda.com" class="nav-button" target="_blank" rel="noopener noreferrer">Tienda</a>
+            <a href="https://vaebridge.com/tops" class="nav-button">Tops</a>
+            <a href="https://discord.gg/fEYt2VMU" class="nav-button" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="https://vaebridge.com/baneos" class="nav-button">Baneos</a>
+            <a href="https://vaebridge.com/informacion" class="nav-button">Información</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Información</h1>
+        <p class="subtitle">Todo lo que necesitas saber sobre VaeBridge</p>
+    </section>
+
+    <!-- Contenedor Principal -->
+    <div class="main-container">
+
+        <!-- Sección de Información -->
+        <div class="info-section">
+            <h2>Sobre VaeBridge</h2>
+
+            <h3>Nuestra Misión</h3>
+            <p>
+                VaeBridge es más que un servidor de Minecraft: es una plataforma competitiva donde los jugadores
+                más hábiles del mundo demuestran su maestría en tres disciplinas fundamentales:
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Bypassing</h4>
+                    <p>Estrategia y pensamiento táctico</p>
+                </div>
+                <div class="stat-card">
+                    <h4>PVP</h4>
+                    <p>Combate y habilidades de lucha</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Defensa</h4>
+                    <p>Protección y control territorial</p>
+                </div>
+            </div>
+
+            <h3>Sistema de Ranking ELO</h3>
+            <p>
+                Nuestro sistema de clasificación se basa en el modelo ELO, utilizado en competencias profesionales
+                de todo el mundo. Cada victoria, derrota y rendimiento individual afecta tu puntuación de manera
+                precisa y justa.
+            </p>
+            <p>
+                Las clasificaciones se actualizan <strong>mensualmente</strong> basándose en:
+            </p>
+            <ul>
+                <li>Resultados de torneos oficiales</li>
+                <li>Análisis de partidas de alto nivel</li>
+                <li>Evaluación de nuestro equipo de observadores</li>
+                <li>Estadísticas de rendimiento en tiempo real</li>
+            </ul>
+
+            <h3>Sistema de Tiers</h3>
+            <p>
+                Los jugadores están divididos en tiers según su habilidad, desde <strong>HT1 (S-Tier)</strong>
+                para los mejores del mundo, hasta <strong>LT5 (F-Tier)</strong> para principiantes.
+                Solo los jugadores más dedicados alcanzan los tiers superiores.
+            </p>
+
+            <h3>IP del Servidor</h3>
+            <p style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid var(--success-color); font-size: 1.2rem; text-align: center;">
+                <strong>vaebridge.com</strong>
+            </p>
+        </div>
+
+        <!-- Formulario de Contacto -->
+        <div class="form-container">
+            <h2>Contáctanos</h2>
+            <p class="form-intro">
+                Tienes preguntas, sugerencias o quieres proponer un jugador para el ranking?
+                <br>Envíanos un mensaje y te responderemos lo antes posible.
+            </p>
+
+            <form
+                id="contactForm"
+                action="https://formspree.io/f/mgvpjpro"
+                method="POST"
+            >
+                <div class="form-group">
+                    <label for="nombre">
+                        Nombre o Nickname
+                    </label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        required
+                        placeholder="Tu nombre de usuario"
+                        maxlength="50"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        Email de Contacto
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        placeholder="tu@email.com"
+                        maxlength="100"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje">
+                        Mensaje / Detalle
+                    </label>
+                    <textarea
+                        id="mensaje"
+                        name="mensaje"
+                        required
+                        placeholder="Escribe tu mensaje aquí..."
+                        maxlength="1000"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-button" id="submit-btn">
+                    Enviar Mensaje
+                </button>
+            </form>
+
+            <div id="form-result"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Manejo del formulario
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submit-btn');
+        const resultDiv = document.getElementById('form-result');
+
+        form.addEventListener('submit', function(e) {
+            // Deshabilitar botón mientras se envía
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+        });
+
+        // Manejar respuesta del formulario
+        window.addEventListener('load', function() {
+            // Si hay parámetros en la URL, el formulario fue enviado
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.toString()) {
+                resultDiv.className = 'success';
+                resultDiv.textContent = '✓ ¡Mensaje enviado con éxito! Te responderemos pronto.';
+                form.reset();
+
+                // Limpiar URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
+        // Prevenir ataques XSS
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function(e) {
+                    // Remover tags de script
+                    e.target.value = e.target.value.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+                    // Remover otros tags peligrosos
+                    e.target.value = e.target.value.replace(/<[^>]*>/g, '');
+                });
+            });
+        });
+    </script>
+
+    <script src="../../config.js"></script>
+    <script src="../../script.js"></script>
+</body>
+</html>
