@@ -16,7 +16,7 @@
 // =================== CONFIGURACIÓN DE BASE DE DATOS ===================
 
 // Host de la base de datos (usualmente 'localhost')
-define('DB_HOST', 'mia-pg-1002.bloom.host');
+define('DB_HOST', 'mia-pg-1002.bloom.host:3306');
 
 // Nombre de la base de datos
 define('DB_NAME', 's99457_VaeBridge');
