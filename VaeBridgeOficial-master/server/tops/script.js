@@ -9,7 +9,7 @@ let tierDisplayMode = 'highTier'; // 'highTier' o 'letter'
 
 // Obtener la fuente de datos desde config.js
 // Si config.js no está cargado, usar data.json por defecto
-const JSON_FILE = window.CONFIG ? window.CONFIG.dataSource : 'data.json';
+const JSON_FILE = window.CONFIG ? window.CONFIG.dataSource : 'script.js';
 
 // ====================================================================
 // MAPEO DE TIERS
