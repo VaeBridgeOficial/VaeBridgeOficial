@@ -1,0 +1,233 @@
+{
+  "rankings": [
+    "player1",
+    "player2",
+    "player3",
+    "player4",
+    "player5"
+  ],
+  "players": {
+    "player1": {
+      "name": "Drufts",
+      "region": "NA",
+      "points": 2850,
+      "tier": "HT1",
+      "avatar": "https://mc-heads.net/avatar/Drufts/50",
+      "discordVerified": true,
+      "discordTag": "Drufts#0001",
+      "badges": [
+        {
+          "title": "Winner",
+          "icon": "https://img.icons8.com/color/48/000000/trophy.png"
+        }
+      ],
+      "skills": {
+        "bypassing": 10,
+        "pvp": 9,
+        "defensa": 8
+      },
+      "stats": {
+        "wins": 485,
+        "losses": 102,
+        "kills": 3240,
+        "deaths": 890,
+        "goles": 1850,
+        "winrate": 82.6
+      }
+    },
+    "player2": {
+      "name": "IllGoTosleep",
+      "region": "EU",
+      "points": 2650,
+      "tier": "LT1",
+      "avatar": "https://mc-heads.net/avatar/IllGoToSleep/50",
+      "discordVerified": true,
+      "discordTag": "IllGoTosleep#0002",
+      "badges": [
+        {
+          "title": "Top Killer",
+          "icon": "https://img.icons8.com/color/48/000000/sword.png"
+        }
+      ],
+      "skills": {
+        "bypassing": 9,
+        "pvp": 10,
+        "defensa": 9
+      },
+      "stats": {
+        "wins": 432,
+        "losses": 145,
+        "kills": 3580,
+        "deaths": 1020,
+        "goles": 1650,
+        "winrate": 74.9
+      }
+    },
+    "player3": {
+      "name": "iCookedPan_",
+      "region": "AS",
+      "points": 2350,
+      "tier": "HT2",
+      "avatar": "https://mc-heads.net/avatar/iCookedPan_/50",
+      "discordVerified": false,
+      "discordTag": null,
+      "badges": [],
+      "skills": {
+        "bypassing": 8,
+        "pvp": 7,
+        "defensa": 8
+      },
+      "stats": {
+        "wins": 385,
+        "losses": 178,
+        "kills": 2850,
+        "deaths": 1240,
+        "goles": 1450,
+        "winrate": 68.4
+      }
+    },
+    "player4": {
+      "name": "Swmu",
+      "region": "EU",
+      "points": 2180,
+      "tier": "LT2",
+      "avatar": "https://mc-heads.net/avatar/Swmu/50",
+      "discordVerified": true,
+      "discordTag": "Swmu#0004",
+      "badges": [],
+      "skills": {
+        "bypassing": 7,
+        "pvp": 9,
+        "defensa": 6
+      },
+      "stats": {
+        "wins": 340,
+        "losses": 195,
+        "kills": 2650,
+        "deaths": 1380,
+        "goles": 1320,
+        "winrate": 63.6
+      }
+    },
+    "player5": {
+      "name": "fakluv",
+      "region": "NA",
+      "points": 1950,
+      "tier": "HT3",
+      "avatar": "https://mc-heads.net/avatar/fakluv/50",
+      "discordVerified": true,
+      "discordTag": "fakluv#0005",
+      "badges": [
+        {
+          "title": "Legend",
+          "icon": "https://img.icons8.com/color/48/000000/medal.png"
+        }
+      ],
+      "skills": {
+        "bypassing": 8,
+        "pvp": 8,
+        "defensa": 9
+      },
+      "stats": {
+        "wins": 298,
+        "losses": 210,
+        "kills": 2450,
+        "deaths": 1520,
+        "goles": 1180,
+        "winrate": 58.7
+      }
+    }
+  }
+=======
+  {
+  "rankings": [
+    "player1",
+    "player2",
+    "player3",
+    "player4",
+    "player5"
+  ],
+  "players": {
+    "player1": {
+      "name": "Drufts",
+      "region": "NA",
+      "points": 50,
+      "tier": "S",
+      "avatar": "https://mc-heads.net/avatar/Drufts/50",
+      "badges": [
+        { 
+          "title": "Winner", 
+          "icon": "https://img.icons8.com/color/48/000000/trophy.png" 
+        }
+      ],
+      "skills": { 
+        "bypassing": 10,
+        "pvp": 9,
+        "defensa": 8
+      }
+    },
+    "player2": {
+      "name": "IllGoTosleep",
+      "region": "EU",
+      "points": 45,
+      "tier": "A",
+      "avatar": "https://mc-heads.net/avatar/IllGoToSleep/50",
+      "badges": [
+        { 
+          "title": "Top Killer", 
+          "icon": "https://img.icons8.com/color/48/000000/sword.png" 
+        }
+      ],
+      "skills": { 
+        "bypassing": 9,
+        "pvp": 10,
+        "defensa": 9
+      }
+    },
+    "player3": {
+      "name": "iCookedPan_",
+      "region": "AS",
+      "points": 40,
+      "tier": "B",
+      "avatar": "https://mc-heads.net/avatar/iCookedPan_/50",
+      "badges": [],
+      "skills": { 
+        "bypassing": 8,
+        "pvp": 7,
+        "defensa": 8
+      }
+    },
+    "player4": {
+      "name": "Swmu",
+      "region": "EU",
+      "points": 38,
+      "tier": "B",
+      "avatar": "https://mc-heads.net/avatar/Swmu/50",
+      "badges": [],
+      "skills": { 
+        "bypassing": 7,
+        "pvp": 9,
+        "defensa": 6
+      }
+    },
+    "player5": {
+      "name": "fakluv",
+      "region": "NA",
+      "points": 35,
+      "tier": "C",
+      "avatar": "https://mc-heads.net/avatar/fakluv/50",
+      "badges": [
+        { 
+          "title": "Legend", 
+          "icon": "https://img.icons8.com/color/48/000000/medal.png" 
+        }
+      ],
+      "skills": { 
+        "bypassing": 8,
+        "pvp": 8,
+        "defensa": 9
+      }
+    }
+  }
+
+}
